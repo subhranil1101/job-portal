@@ -1,4 +1,4 @@
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
@@ -7,7 +7,7 @@ export const register = async (req, res) => {
       try {
             //fetching data from request body
             const { fullName, email, phoneNo, password, role } = req.body;
-            //checking all fields are filled
+            //checking all fields are filled or not
             if (!fullName || !email || !phoneNo || !password || !role) {
                   return res.status(400).json({
                         message: 'Something is missing',
@@ -16,7 +16,7 @@ export const register = async (req, res) => {
             }
 
             //checking email is already in the db
-            const user = User.findOne({ email });
+            const user = await User.findOne({ email });
             if (user) {
                   return res.status(400).json({
                         message: 'User is already Exist with this email',
@@ -35,7 +35,7 @@ export const register = async (req, res) => {
                   password: hashedPassword,
                   role
             })
-            return res.status(201).json({
+            return res.status(200).json({
                   message: 'Account created successfully.',
                   success: true
             })
@@ -132,17 +132,15 @@ export const updateProfile = async (req, res) => {
             const { fullName, email, phoneNo, bio, skills } = req.body;
             const file = req.file
 
-            if (!fullName || !email || !phoneNo || !bio || !skills) {
-                  return res.status(400).json({
-                        message: 'Something is missing',
-                        success: true
-                  })
-            }
             //converting skills string -> array
-            const skillsArray = skills.split(',');
+            let skillsArray;
+            if (skills) {
+                  skillsArray = skills.split(',');
+            }
+
             const userId = req.id; //Middleware authentication
             //checking user is exists or not
-            const user = User.findById(userId);
+            let user = await User.findById(userId);
             if (!user) {
                   return res.status(400).json({
                         message: 'User not found',
@@ -150,12 +148,12 @@ export const updateProfile = async (req, res) => {
                   })
             }
 
-            //updating db
-            user.fullName = fullName
-            user.email = email
-            user.phoneNo = phoneNo
-            user.profile.bio = bio
-            user.profile.skills = skillsArray
+            //updating db as per input values
+            if (fullName) user.fullName = fullName
+            if (email) user.email = email
+            if (phoneNo) user.phoneNo = phoneNo
+            if (bio) user.profile.bio = bio
+            if (skills) user.profile.skills = skillsArray
 
             await user.save();
 

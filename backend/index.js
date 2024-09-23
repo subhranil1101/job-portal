@@ -26,7 +26,7 @@ const PORT = 3000;
 
 
 //All api's
-app.use('/api/v1/user', userRoute)
+app.use("/api/v1/user", userRoute)
 
 
 app.listen(PORT, async () => {
