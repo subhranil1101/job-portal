@@ -1,6 +1,7 @@
 import CategoryCarousel from "./CategoryCarousel"
 import HeroSection from "./HeroSection"
 import Navbar from "./shared/Navbar"
+import LatestJobs from "./LatestJobs"
 
 const Home = () => {
       return (
@@ -8,6 +9,7 @@ const Home = () => {
                   <Navbar />
                   <HeroSection />
                   <CategoryCarousel />
+                  <LatestJobs />
             </div>
       )
 }
