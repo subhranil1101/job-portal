@@ -7,6 +7,7 @@ export const register = async (req, res) => {
       try {
             //fetching data from request body
             const { fullName, email, phoneNo, password, role } = req.body;
+            console.log(fullName, email, phoneNo, password, role)
             //checking all fields are filled or not
             if (!fullName || !email || !phoneNo || !password || !role) {
                   return res.status(400).json({
@@ -50,6 +51,7 @@ export const login = async (req, res) => {
       try {
             //fetching data from request body
             const { email, password, role } = req.body;
+            console.log(email, password, role)
 
             //checking all fields are filled 
             if (!email || !password || !role) {
