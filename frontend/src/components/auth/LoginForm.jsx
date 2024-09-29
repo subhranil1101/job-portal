@@ -4,21 +4,26 @@ import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const LoginForm = () => {
+      const dispatch = useDispatch();
+      const { loading } = useSelector((store) => store.auth);
       const [input, setInput] = useState({
             email: "",
             password: "",
-            role: ""
+            role: "",
       });
       const navigate = useNavigate();
-
       const changeEventHandler = (e) => {
             setInput({ ...input, [e.target.name]: e.target.value });
-      }
+      };
       const submitHandler = async (e) => {
             e.preventDefault();
             try {
+                  dispatch(setLoading(true));
                   const res = await axios.post(`${USER_API_ENDPOINT}/login`, input, {
                         headers: {
                               "Content-Type": "application/json",
@@ -32,12 +37,17 @@ const LoginForm = () => {
             } catch (error) {
                   console.log(error);
                   toast.error(error.response.data.message);
+            } finally {
+                  dispatch(setLoading(false));
             }
       };
 
       return (
             <div className="border border-gray-600 rounded-xl w-[60%] bg-slate-300">
-                  <form onSubmit={submitHandler} className="flex flex-col gap-7 text-2xl p-6">
+                  <form
+                        onSubmit={submitHandler}
+                        className="flex flex-col gap-7 text-2xl p-6"
+                  >
                         <div className="w-full flex flex-col">
                               <input
                                     type="email"
@@ -47,7 +57,6 @@ const LoginForm = () => {
                                     placeholder=" Enter your email"
                                     className="border border-black rounded-xl py-1.5 px-3"
                               />
-
                         </div>
 
                         <div className="w-full flex flex-col">
@@ -91,12 +100,19 @@ const LoginForm = () => {
                         </div>
 
                         <div className="flex flex-col gap-2 w-full">
-                              <Button
-                                    type="submit"
-                                    className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
-                              >
-                                    Login
-                              </Button>
+                              {loading ? (
+                                    <Button className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
+                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                          Please wait..
+                                    </Button>
+                              ) : (
+                                    <Button
+                                          type="submit"
+                                          className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
+                                    >
+                                          Login
+                                    </Button>
+                              )}
                               <span className=" mx-auto text-base">
                                     Don&apos;t have an account?&nbsp;
                                     <Link to="/signup" className="text-blue-600 hover:underline">

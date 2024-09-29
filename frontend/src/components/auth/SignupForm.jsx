@@ -4,8 +4,14 @@ import axios from "axios";
 import { USER_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "@/redux/authSlice";
+import { Loader2 } from "lucide-react";
 
 const SignupForm = () => {
+      const dispatch = useDispatch();
+      const { loading } = useSelector((store) => store.auth);
+
       const [input, setInput] = useState({
             fullName: "",
             email: "",
@@ -38,6 +44,7 @@ const SignupForm = () => {
             }
 
             try {
+                  dispatch(setLoading(true));
                   const res = await axios.post(`${USER_API_ENDPOINT}/register`, formData, {
                         headers: {
                               "Content-Type": "multipart/form-data",
@@ -51,6 +58,8 @@ const SignupForm = () => {
             } catch (error) {
                   console.log(error);
                   toast.error(error.response.data.message);
+            } finally {
+                  dispatch(setLoading(false));
             }
       };
 
@@ -61,26 +70,22 @@ const SignupForm = () => {
                               <input
                                     placeholder="Enter full name"
                                     className="border border-black  rounded-xl px-3 py-1.5"
-
                                     type="text"
                                     name="fullName"
                                     value={input.fullName}
                                     onChange={changeEventHandler}
                               />
-
                         </div>
 
                         <div className="w-full flex flex-col">
                               <input
                                     placeholder=" Enter your email"
                                     className="border border-black rounded-xl py-1.5 px-3"
-
                                     type="email"
                                     name="email"
                                     value={input.email}
                                     onChange={changeEventHandler}
                               />
-
                         </div>
 
                         <div className="w-full flex flex-col">
@@ -92,7 +97,6 @@ const SignupForm = () => {
                                     value={input.phoneNo}
                                     onChange={changeEventHandler}
                               />
-
                         </div>
 
                         <div className="w-full flex flex-col">
@@ -100,12 +104,10 @@ const SignupForm = () => {
                                     placeholder=" Enter a password"
                                     type="password"
                                     className="border border-black rounded-xl px-3 py-1.5"
-
                                     name="password"
                                     value={input.password}
                                     onChange={changeEventHandler}
                               />
-
                         </div>
 
                         <div className="flex justify-between">
@@ -150,12 +152,19 @@ const SignupForm = () => {
                               </div>
                         </div>
                         <div className="flex flex-col gap-2 w-full">
-                              <Button
-                                    type="submit"
-                                    className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
-                              >
-                                    Sign Up
-                              </Button>
+                              {loading ? (
+                                    <Button className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
+                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                          Please wait..
+                                    </Button>
+                              ) : (
+                                    <Button
+                                          type="submit"
+                                          className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
+                                    >
+                                          Sign Up
+                                    </Button>
+                              )}
                               <span className=" mx-auto text-base">
                                     Already have an account?&nbsp;
                                     <Link to="/login" className="text-blue-600 hover:underline">
