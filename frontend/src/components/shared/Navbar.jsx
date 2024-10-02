@@ -8,14 +8,14 @@ const Navbar = () => {
       const user = false;
       return (
             <div className="bg-white flex justify-between my-2 items-center mx-auto max-w-[90%] h-16">
-                  <div className="text-3xl font-bold">
+                  <Link to='/'><div className="text-3xl font-bold">
                         Job<span className="text-blue-600">Cat</span>
-                  </div>
+                  </div></Link>
                   <div className="flex justify-between gap-12 items-center">
                         <ul className="flex gap-6 text-xl font-bold items-center">
                               <li> <Link to='/'>Home</Link> </li>
                               <li> <Link to='/jobs'>Jobs</Link> </li>
-                              <li><Link to='/'>Browse</Link></li>
+                              <li><Link to='/browse'>Browse</Link></li>
                         </ul>
                         {!user ? (
                               <div className="flex gap-2 items-center">
