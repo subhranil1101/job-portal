@@ -2,7 +2,7 @@ import CategoryCarousel from "./CategoryCarousel"
 import HeroSection from "./HeroSection"
 import Navbar from "./shared/Navbar"
 import LatestJobs from "./LatestJobs"
-import Footer from "./Footer"
+import Footer from "./shared/Footer"
 
 const Home = () => {
       return (
