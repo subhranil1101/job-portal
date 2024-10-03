@@ -3,9 +3,10 @@ import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-      const user = false;
+      const { user } = useSelector(store => store.auth)
       return (
             <div className="bg-white flex justify-between my-2 items-center mx-auto max-w-[90%] h-16">
                   <Link to='/'><div className="text-3xl font-bold">
@@ -44,7 +45,7 @@ const Navbar = () => {
                                                 </div>
                                           </div>
                                           <div className="w-[90%] flex mt-5 justify-between text-sm">
-                                                <Button variant='link'> <User2 />&nbsp;View Profile</Button>
+                                                <Link to='/profile'><Button variant='link'> <User2 />&nbsp;View Profile</Button></Link>
                                                 <Button variant='destructive' className='bg-red-600 rounded-2xl hover:bg-red-500 text-white'><LogOut />&nbsp;Logout</Button>
 
                                           </div>
