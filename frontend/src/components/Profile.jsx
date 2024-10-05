@@ -5,9 +5,13 @@ import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
 import { Link } from "react-router-dom"
 import AppliedJobTable from "./AppliedJobTable"
+import UpdateProfileDialog from "./UpdateProfileDialog"
+import { useState } from "react"
 
 const skills = ['HTML', 'CSS', 'JavaScript', 'ReactJs']
 const Profile = () => {
+
+      const [open, setOpen] = useState(false)
       const isResume = true;
       return (
             <div>
@@ -24,7 +28,7 @@ const Profile = () => {
                                     </div>
                               </div>
                               <div>
-                                    <Button variant='ghost' className='bg-gray-200 hover:bg-gray-100 rounded-full'><Pen size='icon' /></Button>
+                                    <Button onClick={() => setOpen(true)} variant='ghost' className='bg-gray-200 hover:bg-gray-100 rounded-full'><Pen size='icon' /></Button>
                               </div>
                         </div>
                         <div className="flex flex-col my-5 gap-4 text-xl">
@@ -45,6 +49,7 @@ const Profile = () => {
                         <hr className="mt-2" />
                         <AppliedJobTable />
                   </div>
+                  <UpdateProfileDialog open={open} setOpen={setOpen} />
             </div>
       )
 }
