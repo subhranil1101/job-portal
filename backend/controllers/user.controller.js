@@ -18,6 +18,11 @@ export const register = async (req, res) => {
                   })
             }
 
+            //cloudinary setup for dp
+            const file = req.file
+            const fileUri = getDataUri(file)
+            const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+
             //checking email is already in the db
             const user = await User.findOne({ email });
             if (user) {
@@ -36,7 +41,8 @@ export const register = async (req, res) => {
                   email,
                   phoneNo,
                   password: hashedPassword,
-                  role
+                  role,
+                  profile: { profilePhoto: cloudResponse.secure_url }
             })
             return res.status(200).json({
                   message: 'Account created successfully.',

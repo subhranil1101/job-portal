@@ -19,7 +19,7 @@ const Profile = () => {
                         <div className="flex justify-between items-center">
                               <div className="flex items-center gap-5">
                                     <Avatar className='h-24 w-24'>
-                                          <AvatarImage src='https://github.com/shadcn.png' />
+                                          <AvatarImage src={user?.profile?.profilePhoto} />
                                     </Avatar>
                                     <div>
                                           <h1 className="text-3xl font-serif font-bold">{user?.fullName}</h1>
