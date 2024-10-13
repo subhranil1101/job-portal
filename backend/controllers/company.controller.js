@@ -1,4 +1,6 @@
 import { Company } from "../models/company.model.js";
+import getDataUri from "../utils/dataUri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 //company register function
 export const companyRegister = async (req, res) => {
@@ -91,9 +93,12 @@ export const updateCompany = async (req, res) => {
             //fetching from req body
             const { name, description, website, location } = req.body
             const file = req.file //logo
+            const fileUri = getDataUri(file)
+            const cloudeResponse = await cloudinary.uploader.upload(fileUri.content)
+            const logo = cloudeResponse.secure_url
 
             //saving all updates in one variable
-            const updateData = { name, description, website, location }
+            const updateData = { name, description, website, location, logo }
             //updating the company after finding by req id with updateData
             const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true })
 
