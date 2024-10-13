@@ -35,9 +35,19 @@ const Navbar = () => {
                   </div></Link>
                   <div className="flex justify-between gap-12 items-center">
                         <ul className="flex gap-6 text-xl font-bold items-center">
-                              <li> <Link to='/'>Home</Link> </li>
-                              <li> <Link to='/jobs'>Jobs</Link> </li>
-                              <li><Link to='/browse'>Browse</Link></li>
+                              {
+                                    user && user.role === 'recruiter' ? (
+                                          <>
+                                                <li> <Link to='/admin/companies'>Companies</Link> </li>
+                                                <li> <Link to='/admin/jobs'>Jobs</Link> </li>
+                                          </>
+                                    ) : (
+                                          <>
+                                                <li> <Link to='/'>Home</Link> </li>
+                                                <li> <Link to='/jobs'>Jobs</Link> </li>
+                                                <li><Link to='/browse'>Browse</Link></li>
+                                          </>
+                                    )}
                         </ul>
                         {!user ? (
                               <div className="flex gap-2 items-center">
@@ -66,7 +76,9 @@ const Navbar = () => {
                                                 </div>
                                           </div>
                                           <div className="w-[90%] flex mt-5 justify-between text-sm">
-                                                <Link to='/profile'><Button variant='link'> <User2 />&nbsp;View Profile</Button></Link>
+                                                {user && user.role === 'student' && (
+                                                      <Link to='/profile'><Button variant='link'> <User2 />&nbsp;View Profile</Button></Link>
+                                                )}
                                                 <Button onClick={logoutHandler} variant='destructive' className='bg-red-600 rounded-2xl hover:bg-red-500 text-white'><LogOut />&nbsp;Logout</Button>
 
                                           </div>
