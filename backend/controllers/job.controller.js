@@ -78,7 +78,7 @@ export const getJobById = async (req, res) => {
       try {
             //getting job id from URL
             const jobId = req.params.id
-            const job = await Job.findById(jobId).populate({ path: "company" }).sort({ createdAt: -1 }) //finding job in db
+            const job = await Job.findById(jobId).populate({ path: "applications" }).populate({ path: "company" }).sort({ createdAt: -1 }) //finding job in db
             //checking if no job is present
             if (!job) {
                   return res.status(404).json({
