@@ -22,7 +22,7 @@ const Job = ({ job }) => {
                   </div>
 
                   <div className="flex gap-5 items-center my-1">
-                        <Button className='p-5' variant='ghost' size='icon'><Avatar ><AvatarImage src='https://www.shutterstock.com/image-vector/company-vector-logo-design-element-260nw-452062015.jpg' className='object-contain' /></Avatar></Button>
+                        <Button className='p-5' variant='ghost' size='icon'><Avatar ><AvatarImage src={job?.company?.logo} className='object-contain' /></Avatar></Button>
                         <div>
                               <h1 className="text-xl font-bold font-serif">{job?.company?.name}</h1>
                               <span className="text-sm italic font-serif text-slate-500">India</span>
