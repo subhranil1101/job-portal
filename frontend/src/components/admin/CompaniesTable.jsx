@@ -4,8 +4,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const CompaniesTable = () => {
+      const navigate = useNavigate()
       const { companies, searchCompanyByName } = useSelector(store => store.company)
       const [filterCompany, setFilterCompany] = useState(companies)
 
@@ -52,7 +54,7 @@ const CompaniesTable = () => {
                                                 <Popover>
                                                       <PopoverTrigger><MoreHorizontalIcon /></PopoverTrigger>
                                                       <PopoverContent className='rounded-3xl shadow-xl w-fit bg-slate-50 flex flex-col gap-5 justify-start items-start'>
-                                                            <div className="flex gap-2 items-center cursor-pointer">
+                                                            <div onClick={() => navigate(`/admin/companies/${company._id}`)} className="flex gap-2 items-center cursor-pointer">
                                                                   <EditIcon size='20' />
                                                                   <span>Edit</span>
                                                             </div>

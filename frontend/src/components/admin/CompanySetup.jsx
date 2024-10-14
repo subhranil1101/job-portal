@@ -1,14 +1,17 @@
 import { ArrowLeft, Loader2 } from "lucide-react"
 import Navbar from "../shared/Navbar"
 import { Button } from "../ui/button"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { toast } from "sonner"
 import axios from "axios"
 import { COMPANY_API_ENDPOINT } from "@/utils/constant"
 import { useNavigate, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
+import useGetCompanyById from "@/hooks/useGetCompanyById"
 
 const CompanySetup = () => {
+      const fileInputRef = useRef(null);
+      const [isButtonDisabled, setIsButtonDisabled] = useState(true);
       const [input, setInput] = useState({
             name: "",
             description: "",
@@ -29,6 +32,12 @@ const CompanySetup = () => {
       const changeFileHandler = (e) => {
             const file = e.target.files?.[0]
             setInput({ ...input, file })
+
+            if (fileInputRef.current.files.length > 0) {
+                  setIsButtonDisabled(false);
+            } else {
+                  setIsButtonDisabled(true);
+            }
       }
 
       const submitHandler = async (e) => {
@@ -73,6 +82,8 @@ const CompanySetup = () => {
             })
       }, [singleCompany])
 
+      useGetCompanyById(params.id)
+
       return (
             <div>
                   <Navbar />
@@ -101,7 +112,7 @@ const CompanySetup = () => {
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="file" className="text-xl font-semibold px-2">Company Logo</label>
-                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="file" accept="image/*" onChange={changeFileHandler} />
+                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="file" accept="image/*" onChange={changeFileHandler} ref={fileInputRef} />
                                     </div>
                               </div>
                               {loading ? (
@@ -111,6 +122,7 @@ const CompanySetup = () => {
                                     </Button>
                               ) : (
                                     <Button
+                                          disabled={isButtonDisabled}
                                           type="submit"
                                           className=" py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                     >
