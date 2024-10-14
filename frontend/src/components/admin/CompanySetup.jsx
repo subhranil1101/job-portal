@@ -12,7 +12,7 @@ const CompanySetup = () => {
       const [input, setInput] = useState({
             name: "",
             description: "",
-            website: "https://",
+            website: "",
             location: "",
             file: null
       });
