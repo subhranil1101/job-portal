@@ -3,9 +3,21 @@ import { Avatar, AvatarImage } from "../ui/avatar"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
 
 const CompaniesTable = () => {
-      const { companies } = useSelector(store => store.company)
+      const { companies, searchCompanyByName } = useSelector(store => store.company)
+      const [filterCompany, setFilterCompany] = useState(companies)
+
+      useEffect(() => {
+            const filteredCompany = companies.length >= 0 && companies.filter((company) => {
+                  if (!searchCompanyByName) {
+                        return true
+                  }
+                  return company?.name?.toLowerCase().includes(searchCompanyByName.toLowerCase())
+            })
+            setFilterCompany(filteredCompany)
+      }, [companies, searchCompanyByName])
       return (
             <div>
                   <Table>
@@ -22,7 +34,7 @@ const CompaniesTable = () => {
                               </TableRow>
                         </TableHeader>
                         <TableBody>
-                              {companies?.map((company) => (
+                              {filterCompany?.map((company) => (
                                     <tr key={company._id}>
                                           <TableCell>
                                                 <Avatar>
