@@ -1,4 +1,4 @@
-import { EditIcon, MoreHorizontalIcon, TrashIcon } from "lucide-react"
+import { EditIcon, Eye, MoreHorizontalIcon, TrashIcon } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "../ui/table"
 import { useSelector } from "react-redux"
@@ -48,6 +48,10 @@ const AdminJobsTable = () => {
                                                             <div className="flex gap-2 items-center cursor-pointer">
                                                                   <TrashIcon size='20' />
                                                                   <span>Delete</span>
+                                                            </div>
+                                                            <div onClick={() => navigate(`/admin/jobs/${job._id}/applicants`)} className="flex gap-2 items-center cursor-pointer">
+                                                                  <Eye size='22' />
+                                                                  <span>Applicants</span>
                                                             </div>
                                                       </PopoverContent>
                                                 </Popover>
