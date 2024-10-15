@@ -1,7 +1,17 @@
+import { useSelector } from "react-redux"
 import Navbar from "../shared/Navbar"
 import LoginForm from "./LoginForm"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+      const navigate = useNavigate()
+      const { user } = useSelector(store => store.auth)
+      useEffect(() => {
+            if (user) {
+                  navigate("/")
+            }
+      }, [])
       return (
             <div className="w-full">
                   <Navbar />

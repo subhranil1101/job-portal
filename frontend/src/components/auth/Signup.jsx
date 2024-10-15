@@ -1,7 +1,17 @@
 import Navbar from "../shared/Navbar"
 import SignupForm from "./SignupForm"
+import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Signup = () => {
+      const navigate = useNavigate()
+      const { user } = useSelector(store => store.auth)
+      useEffect(() => {
+            if (user) {
+                  navigate("/")
+            }
+      }, [])
       return (
             <div className="w-full">
                   <Navbar />
