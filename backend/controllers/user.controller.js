@@ -139,11 +139,14 @@ export const updateProfile = async (req, res) => {
       try {
             //fetching from request body
             const { fullName, email, phoneNo, bio, skills } = req.body;
-            const file = req.file
+            // const file = req.file
+
+            const profilePhoto = req.files?.profilePhoto?.[0];
+            const resume = req.files?.resume?.[0];
 
             //cloudinary response setup
-            const fileUri = getDataUri(file)
-            const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+            // const fileUri = getDataUri(file)
+            // const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
 
 
             //converting skills string -> array
@@ -169,10 +172,26 @@ export const updateProfile = async (req, res) => {
             if (bio) user.profile.bio = bio
             if (skills) user.profile.skills = skillsArray
 
-            if (cloudResponse) {
-                  user.profile.resume = cloudResponse.secure_url  //saving cloudinary url
-                  user.profile.resumeOriginalName = file.originalname //saving original filename
+            // Upload files to Cloudinary and update user profile if provided
+            if (profilePhoto) {
+                  const profilePhotoUri = getDataUri(profilePhoto);
+                  const profilePhotoResponse = await cloudinary.uploader.upload(profilePhotoUri.content);
+                  user.profile.profilePhoto = profilePhotoResponse.secure_url; // Save Cloudinary URL
+                  user.profile.profilePhotoOriginalName = profilePhoto.originalname; // Save original filename
             }
+
+            if (resume) {
+                  const resumeUri = getDataUri(resume);
+                  const resumeResponse = await cloudinary.uploader.upload(resumeUri.content);
+                  user.profile.resume = resumeResponse.secure_url; // Save Cloudinary URL
+                  user.profile.resumeOriginalName = resume.originalname; // Save original filename
+            }
+
+
+            // if (cloudResponse) {
+            //       user.profile.resume = cloudResponse.secure_url  //saving cloudinary url
+            //       user.profile.resumeOriginalName = file.originalname //saving original filename
+            // }
 
             await user.save();
 
@@ -186,6 +205,8 @@ export const updateProfile = async (req, res) => {
                   profile: user.profile
             }
 
+            console.log(user)
+
             return res.status(200).json({
                   message: 'Account updated successfully',
                   user,
@@ -193,7 +214,11 @@ export const updateProfile = async (req, res) => {
             })
 
       } catch (error) {
-            console.log(error)
+            console.log(error);
+            return res.status(500).json({
+                  message: 'Something went wrong',
+                  success: false
+            });
       }
 }
 

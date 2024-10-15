@@ -18,7 +18,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             phoneNo: user?.phoneNo,
             bio: user?.profile?.bio,
             skills: user?.profile?.skills?.map(skill => skill),
-            file: user?.profile?.resume
+            resume: user?.profile?.resume,
+            profilePhoto: user?.profile?.profilePhoto
       })
 
       const dispatch = useDispatch()
@@ -27,10 +28,16 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             setInput({ ...input, [e.target.name]: e.target.value })
       }
 
-      const fileChangeHandler = (e) => {
-            const file = e.target.files?.[0]
-            setInput({ ...input, file })
+      const resumeChangeHandler = (e) => {
+            const resume = e.target.files?.[0]
+            setInput({ ...input, resume })
       }
+
+      const profilePhotoChangeHandler = (e) => {
+            const profilePhoto = e.target.files?.[0]
+            setInput({ ...input, profilePhoto })
+      }
+
 
       const submitHandler = async (e) => {
             e.preventDefault();
@@ -40,9 +47,12 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             formData.append("phoneNo", input.phoneNo)
             formData.append("bio", input.bio)
             formData.append("skills", input.skills)
-            if (input.file)
-                  formData.append("file", input.file)
-
+            if (input.resume) {
+                  formData.append("resume", input.resume)
+            }
+            if (input.profilePhoto) {
+                  formData.append("profilePhoto", input.profilePhoto)
+            }
             try {
                   setLoading(true)
                   const res = await axios.post(`${USER_API_ENDPOINT}/profile/update`, formData, {
@@ -51,6 +61,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                         },
                         withCredentials: true
                   });
+                  console.log(res.data)
                   if (res.data.success) {
                         dispatch(setUser(res.data.user));
                         toast.success(res.data.message)
@@ -62,7 +73,6 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                   setLoading(false)
             }
             setOpen(false)
-            console.log(input)
       }
 
 
@@ -78,6 +88,10 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                           <div className="grid grid-cols-4 items-center gap-1">
                                                 <label htmlFor="name" className="text-center text-xl">Name</label>
                                                 <input id="name" name="name" value={input.fullName} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                          </div>
+                                          <div className="grid grid-cols-4 items-center gap-1">
+                                                <label htmlFor="profilePhoto" className="text-center text-xl">Profile Photo</label>
+                                                <input type="file" accept="image/*" id="profilePhoto" name="profilePhoto" onChange={profilePhotoChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
                                                 <label htmlFor="email" className="text-center text-xl">Email</label>
@@ -96,8 +110,8 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                                 <input id="skills" name="skills" value={input.skills} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="file" className="text-center text-xl">Resume</label>
-                                                <input type="file" accept="application/pdf" id="file" name="file" onChange={fileChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="resume" className="text-center text-xl">Resume</label>
+                                                <input type="file" accept="application/pdf" id="resume" name="resume" onChange={resumeChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                     </div>
 

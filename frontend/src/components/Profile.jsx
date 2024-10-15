@@ -9,7 +9,6 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import useGetAppliedJobs from "@/hooks/usegetAppliedJobs"
 
-const isResume = true;
 const Profile = () => {
       useGetAppliedJobs()
       const [open, setOpen] = useState(false)
@@ -45,7 +44,7 @@ const Profile = () => {
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-1.5 my-3">
                               <label className="text-2xl font-bold font-mono">Resume</label>
-                              {isResume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono">Add your resume</span>}
+                              {user?.profile?.resume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono">Add your resume</span>}
                         </div>
                   </div>
                   <div className="my-5 max-w-5xl mx-auto w-full bg-white rounded-2xl">
