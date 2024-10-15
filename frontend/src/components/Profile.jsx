@@ -21,7 +21,10 @@ const Profile = () => {
                         <div className="flex justify-between items-center">
                               <div className="flex items-center gap-5">
                                     <Avatar className='h-24 w-24'>
-                                          <AvatarImage src={user?.profile?.profilePhoto} />
+                                          {
+                                                user?.profile?.profilePhoto ? <AvatarImage src={user?.profile?.profilePhoto} alt="profile" /> :
+                                                      <AvatarImage src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="profile" />
+                                          }
                                     </Avatar>
                                     <div>
                                           <h1 className="text-3xl font-serif font-bold">{user?.fullName}</h1>

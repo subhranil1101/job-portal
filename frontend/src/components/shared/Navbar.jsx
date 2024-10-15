@@ -62,13 +62,19 @@ const Navbar = () => {
                               <Popover>
                                     <PopoverTrigger asChild>
                                           <Avatar className='cursor-pointer hover:scale-105'>
-                                                <AvatarImage src={user?.profile?.profilePhoto} alt="profile" />
+                                                {
+                                                      user?.profile?.profilePhoto ? <AvatarImage src={user?.profile?.profilePhoto} alt="profile" /> :
+                                                            <AvatarImage src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="profile" />
+                                                }
                                           </Avatar>
                                     </PopoverTrigger>
                                     <PopoverContent className='w-80 mr-16 rounded-3xl bg-slate-100'>
                                           <div className="flex items-center gap-2">
                                                 <Avatar className='cursor-pointer hover:scale-105'>
-                                                      <AvatarImage src={user?.profile?.profilePhoto} alt="profile" />
+                                                      {
+                                                            user?.profile?.profilePhoto ? <AvatarImage src={user?.profile?.profilePhoto} alt="profile" /> :
+                                                                  <AvatarImage src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="profile" />
+                                                      }
                                                 </Avatar>
                                                 <div>
                                                       <span className="text-xl">{user?.fullName}</span>
