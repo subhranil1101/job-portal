@@ -1,9 +1,21 @@
 import { Search } from "lucide-react"
 import { Button } from "./ui/button"
 import Typewriter from 'typewriter-effect'
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { setSearchedQuery } from "@/redux/jobSlice"
+import { useNavigate } from "react-router-dom"
 
 
 const HeroSection = () => {
+      const dispatch = useDispatch()
+      const navigate = useNavigate()
+      const [query, setQuery] = useState("")
+      const searchJobHandler = () => {
+            dispatch(setSearchedQuery(query))
+            navigate("/browse")
+      }
+
 
       const info = ["Register you as a Student & Apply various Jobs", "Register you as a Recruiter & Create a company to Post a Job"]
       return (
@@ -20,8 +32,8 @@ const HeroSection = () => {
                         }}
                   /><span className="text-2xl not-italic font-bold text-blue-900">&nbsp;&lt;/&gt;</span> </p>
                   <div className="flex justify-between shadow-lg shadow-slate-400 text-2xl py-1 pl-5 pr-2 border border-slate-300 rounded-full my-5 w-1/2 gap-2 ">
-                        <input className="w-full outline-none border-none" type="search" name="search" id="search" placeholder="Find Your Dream Job" />
-                        <Button className="bg-black text-white hover:bg-gray-900 text-2xl h-full rounded-full  "><Search className="w-fit h-fit " /></Button>
+                        <input className="w-full outline-none border-none" type="search" name="search" id="search" placeholder="Find Your Dream Job" onChange={(e) => setQuery(e.target.value)} />
+                        <Button onClick={searchJobHandler} className="bg-black text-white hover:bg-gray-900 text-2xl h-full rounded-full  "><Search className="w-fit h-fit " /></Button>
                   </div>
             </div>
       )

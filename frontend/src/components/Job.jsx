@@ -34,7 +34,7 @@ const Job = ({ job }) => {
                   </div>
                   <div className="flex gap-3 justify-center pt-3">
                         <Badge variant='ghost' className='text-blue-700 font-bold text-sm'>{job?.position} position</Badge>
-                        <Badge variant='ghost' className='text-green-500 font-bold text-sm'>{job.jobType}</Badge>
+                        <Badge variant='ghost' className='text-green-500 font-bold text-sm'>{job?.jobType}</Badge>
                         <Badge variant='ghost' className='text-red-600 font-bold text-sm'>{job?.salary}LPA</Badge>
                   </div>
                   <div className="flex justify-between mt-5 font-serif">
