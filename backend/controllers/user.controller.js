@@ -205,7 +205,6 @@ export const updateProfile = async (req, res) => {
                   profile: user.profile
             }
 
-            console.log(user)
 
             return res.status(200).json({
                   message: 'Account updated successfully',
