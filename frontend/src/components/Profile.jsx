@@ -28,7 +28,7 @@ const Profile = () => {
                                     <div>
                                           <h1 className="text-3xl font-serif font-bold">{user?.fullName}</h1>
                                           {
-                                                user?.profile?.bio.length > 0 ? <p className="text-xl font-serif italic text-gray-700">{user?.profile?.bio}</p> : <span className="text-xs text-green-500 cursor-pointer" onClick={() => setOpen(true)}>Add about yourself</span>
+                                                user?.profile?.bio?.length > 0 && !user?.profile?.bio?.includes("undefined") ? <p className="text-xl font-serif italic text-gray-700">{user?.profile?.bio}</p> : <span className="text-xs text-green-500 cursor-pointer" onClick={() => setOpen(true)}>Add about yourself</span>
                                           }
 
                                     </div>
