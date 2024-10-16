@@ -16,7 +16,7 @@ const Profile = () => {
       return (
             <div>
                   <Navbar />
-                  <div className="max-w-5xl mx-auto border border-slate-600 rounded-2xl bg-white my-10 p-10">
+                  <div className="max-w-5xl mx-auto shadow-xl border border-slate-600 rounded-2xl bg-white my-10 p-10">
                         <div className="flex justify-between items-center">
                               <div className="flex items-center gap-5">
                                     <Avatar className='h-24 w-24'>
@@ -44,7 +44,7 @@ const Profile = () => {
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-1.5 my-3">
                               <label className="text-2xl font-bold font-mono">Resume</label>
-                              {user?.profile?.resume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono">Add your resume</span>}
+                              {user?.profile?.resume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer text-blue-800 hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono">Add your resume</span>}
                         </div>
                   </div>
                   <div className="my-5 max-w-5xl mx-auto w-full bg-white rounded-2xl">

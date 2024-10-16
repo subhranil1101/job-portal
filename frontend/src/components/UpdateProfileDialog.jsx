@@ -1,6 +1,6 @@
 import { Loader2 } from "lucide-react"
 import { Button } from "./ui/button"
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
@@ -80,37 +80,47 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
             <div>
                   <Dialog open={open} >
                         <DialogContent className='bg-white sm:max-w-[700px]' onInteractOutside={() => setOpen(false)} >
-                              <DialogHeader>
-                                    <DialogTitle className='text-center text-2xl font-bold font-mono'>Update Profile</DialogTitle>
+                              <DialogHeader >
+                                    <DialogTitle className='text-center text-2xl font-bold font-mono'>
+                                          Update Profile
+                                    </DialogTitle>
+                                    <DialogDescription className="text-xs mx-auto">
+                                          Make changes to your profile here. Click update when you&apos;re done.
+                                    </DialogDescription>
+                                    <DialogClose asChild className="">
+                                          <Button className="w-fit rounded-xl absolute right-3 top-3 bg-white hover:bg-white z-10" onClick={() => setOpen(false)} type="button" variant="outline">
+                                                Close
+                                          </Button>
+                                    </DialogClose>
                               </DialogHeader>
                               <form onSubmit={submitHandler}>
                                     <div className="grid gap-4 py-4">
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="name" className="text-center text-xl">Name</label>
+                                                <label htmlFor="name" className="text-center text-xl font-medium">Name</label>
                                                 <input id="name" name="name" value={input.fullName} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="profilePhoto" className="text-center text-xl">Profile Photo</label>
+                                                <label htmlFor="profilePhoto" className="text-center text-xl font-medium">Profile Photo</label>
                                                 <input type="file" accept="image/*" id="profilePhoto" name="profilePhoto" onChange={profilePhotoChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="email" className="text-center text-xl">Email</label>
-                                                <input type='email' id="email" name="email" value={input.email} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="email" className="text-center text-xl font-medium">Email</label>
+                                                <input type='email' id="email" name="email" value={input.email} placeholder="example@email.com" onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="phoneNo" className="text-center text-xl">Phone No</label>
-                                                <input id="phoneNo" name="phoneNo" value={input.phoneNo} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="phoneNo" className="text-center text-xl font-medium">Phone No</label>
+                                                <input id="phoneNo" name="phoneNo" value={input.phoneNo} onChange={changeEventHandler} placeholder="0123456789" className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="bio" className="text-center text-xl">Bio</label>
-                                                <textarea rows={3} id="bio" name="bio" value={input.bio} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="bio" className="text-center text-xl font-medium">Bio</label>
+                                                <textarea rows={3} id="bio" name="bio" value={input.bio} onChange={changeEventHandler} placeholder="Something about yourself" className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="skills" className="text-center text-xl">Skills</label>
-                                                <input id="skills" name="skills" value={input.skills} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="skills" className="text-center text-xl font-medium">Skills</label>
+                                                <input id="skills" name="skills" value={input.skills} onChange={changeEventHandler} placeholder="Use ',' separated value" className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="resume" className="text-center text-xl">Resume</label>
+                                                <label htmlFor="resume" className="text-center text-xl font-medium">Resume</label>
                                                 <input type="file" accept="application/pdf" id="resume" name="resume" onChange={resumeChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                     </div>
@@ -131,7 +141,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                           )}
                                     </DialogFooter>
                               </form>
-                        </DialogContent>
+                        </DialogContent >
                   </Dialog>
 
             </div>
