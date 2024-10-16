@@ -78,7 +78,9 @@ const Navbar = () => {
                                                 </Avatar>
                                                 <div>
                                                       <span className="text-xl">{user?.fullName}</span>
-                                                      <p className="text-sm text-muted-foreground italic text-balance">{user?.profile?.bio}</p>
+                                                      <p className="text-sm text-muted-foreground italic text-balance">
+                                                            {user?.profile?.bio && !user?.profile?.bio?.includes("undefined") ? user?.profile?.bio : ""}
+                                                      </p>
                                                 </div>
                                           </div>
                                           <div className="w-[90%] flex mt-5 justify-between text-sm">
