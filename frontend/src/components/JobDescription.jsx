@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "./shared/Navbar";
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
@@ -8,8 +8,10 @@ import { setSingleJob } from "@/redux/jobSlice";
 import axios from "axios";
 import { APPLICATION_API_ENDPOINT, JOB_API_ENDPOINT } from "@/utils/constant";
 import { toast } from "sonner";
+import { ArrowLeft } from "lucide-react";
 
 const JobDescription = () => {
+      const navigate = useNavigate()
       const dispatch = useDispatch()
       const { singleJob } = useSelector(store => store.job)
       const { user } = useSelector(store => store.auth)
@@ -51,7 +53,11 @@ const JobDescription = () => {
       return (
             <div>
                   <Navbar />
-                  <div className="max-w-7xl mx-auto my-10">
+                  <div className="max-w-7xl mx-auto my-7">
+                        <Button onClick={() => navigate(-1)} variant='outline' className="rounded-xl flex items-center justify-center w-fit my-2 text-base font-bold">
+                              <ArrowLeft size={25} />
+                              Back
+                        </Button>
                         <div className="flex justify-between items-center ">
                               <div>
                                     <h1 className="text-4xl font-bold font-mono">{singleJob?.title}</h1>
