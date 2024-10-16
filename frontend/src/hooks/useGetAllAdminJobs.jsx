@@ -18,6 +18,7 @@ const useGetAllAdminJobs = () => {
                   }
             }
             fetchAllAdminJobs();
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
 }
 

@@ -15,6 +15,7 @@ const Companies = () => {
       const dispatch = useDispatch()
       useEffect(() => {
             dispatch(setSearchCompanyByName(input))
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [input])
       return (
             <div>

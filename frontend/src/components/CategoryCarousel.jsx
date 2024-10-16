@@ -3,6 +3,7 @@ import { Button } from "./ui/button"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./ui/carousel"
 import { useDispatch } from "react-redux"
 import { setSearchedQuery } from "@/redux/jobSlice"
+import { motion } from "framer-motion"
 
 const category = [
       "Frontend Developer",
@@ -21,7 +22,11 @@ const CategoryCarousel = () => {
             navigate("/browse")
       }
       return (
-            <div>
+            <motion.div
+                  initial={{ opacity: 0, y: -100 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 100 }}
+                  transition={{ duration: 0.4 }}>
                   <Carousel className="mx-auto w-full max-w-xl mt-16 mb-10" opts={{
                         align: "start",
                         loop: true,
@@ -38,7 +43,7 @@ const CategoryCarousel = () => {
                         <CarouselPrevious />
                         <CarouselNext />
                   </Carousel>
-            </div>
+            </motion.div>
       )
 }
 

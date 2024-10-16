@@ -19,6 +19,7 @@ const useGetAllJobs = () => {
                   }
             }
             fetchAllJobs();
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
 }
 

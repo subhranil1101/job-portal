@@ -11,6 +11,7 @@ const Signup = () => {
             if (user) {
                   navigate("/")
             }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
       return (
             <div className="w-full">

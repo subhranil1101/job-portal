@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children }) => {
             if (user === null || user.role !== 'recruiter') {
                   navigate("/")
             }
-
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
       return (
             <>

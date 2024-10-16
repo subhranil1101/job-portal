@@ -16,6 +16,7 @@ const Home = () => {
             if (user?.role === 'recruiter') {
                   navigate("/admin/companies")
             }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
 
       return (

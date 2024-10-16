@@ -15,6 +15,7 @@ const AdminJobs = () => {
       const dispatch = useDispatch()
       useEffect(() => {
             dispatch(setSearchJobByName(input))
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [input])
       return (
             <div>

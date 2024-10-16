@@ -4,6 +4,7 @@ import Navbar from "./shared/Navbar"
 import { useEffect } from "react"
 import { setSearchedQuery } from "@/redux/jobSlice"
 import useGetAllJobs from "@/hooks/useGetAllJobs"
+import { motion } from "framer-motion"
 
 const Browse = () => {
       useGetAllJobs()
@@ -14,6 +15,7 @@ const Browse = () => {
             return () => {
                   dispatch(setSearchedQuery(""))
             }
+            // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
       return (
             <div>
@@ -24,7 +26,14 @@ const Browse = () => {
                               {
                                     allJobs.map((job) => {
                                           return (
-                                                <Job key={job._id} job={job} />
+                                                <motion.div
+                                                      initial={{ opacity: 0, x: -100 }}
+                                                      animate={{ opacity: 1, x: 0 }}
+                                                      exit={{ opacity: 0, x: 100 }}
+                                                      transition={{ duration: 0.3 }}
+                                                      key={job._id}>
+                                                      <Job job={job} />
+                                                </motion.div>
                                           )
                                     })
                               }
