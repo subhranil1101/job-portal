@@ -96,19 +96,19 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                               <form onSubmit={submitHandler}>
                                     <div className="grid gap-4 py-4">
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="name" className="text-center text-xl font-medium">Name</label>
-                                                <input id="name" name="name" value={input.fullName} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
+                                                <label htmlFor="name" className="text-center text-xl font-medium">Name <span className="text-red-600">*</span></label>
+                                                <input id="name" name="fullName" value={input.fullName} onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
                                                 <label htmlFor="profilePhoto" className="text-center text-xl font-medium">Profile Photo</label>
                                                 <input type="file" accept="image/*" id="profilePhoto" name="profilePhoto" onChange={profilePhotoChangeHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="email" className="text-center text-xl font-medium">Email</label>
+                                                <label htmlFor="email" className="text-center text-xl font-medium">Email <span className="text-red-600">*</span></label>
                                                 <input type='email' id="email" name="email" value={input.email} placeholder="example@email.com" onChange={changeEventHandler} className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
-                                                <label htmlFor="phoneNo" className="text-center text-xl font-medium">Phone No</label>
+                                                <label htmlFor="phoneNo" className="text-center text-xl font-medium">Phone No <span className="text-red-600">*</span></label>
                                                 <input id="phoneNo" name="phoneNo" value={input.phoneNo} onChange={changeEventHandler} placeholder="0123456789" className="col-span-3  border border-gray-600 outline-none px-3 py-2 rounded-2xl text-xl" />
                                           </div>
                                           <div className="grid grid-cols-4 items-center gap-1">
@@ -133,6 +133,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                                 </Button>
                                           ) : (
                                                 <Button
+                                                      disabled={!input.fullName || !input.email || !input.phoneNo || input.fullName.length < 3 || input.phoneNo.length !== 10 || !input.email.includes("@")}
                                                       type="submit"
                                                       className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                                 >

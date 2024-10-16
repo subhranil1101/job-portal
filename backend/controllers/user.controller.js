@@ -166,11 +166,19 @@ export const updateProfile = async (req, res) => {
             }
 
             //updating db as per input values
-            if (fullName) user.fullName = fullName
-            if (email) user.email = email
-            if (phoneNo) user.phoneNo = phoneNo
-            if (bio) user.profile.bio = bio
-            if (skills) user.profile.skills = skillsArray
+            // if (fullName) { user.fullName = fullName }
+            user.fullName = fullName
+            if (email) { user.email = email }
+            if (phoneNo) { user.phoneNo = phoneNo }
+            user.profile.bio = bio
+            user.profile.skills = skillsArray
+
+            if (!fullName || !email || !phoneNo) {
+                  return res.status(400).json({
+                        message: "Required fields must not be blank",
+                        success: false
+                  })
+            }
 
             // Upload files to Cloudinary and update user profile if provided
             if (profilePhoto) {

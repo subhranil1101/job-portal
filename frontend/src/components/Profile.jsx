@@ -27,7 +27,10 @@ const Profile = () => {
                                     </Avatar>
                                     <div>
                                           <h1 className="text-3xl font-serif font-bold">{user?.fullName}</h1>
-                                          <p className="text-xl font-serif italic text-gray-700">{user?.profile?.bio}</p>
+                                          {
+                                                user?.profile?.bio.length > 0 ? <p className="text-xl font-serif italic text-gray-700">{user?.profile?.bio}</p> : <span className="text-xs text-green-500 cursor-pointer" onClick={() => setOpen(true)}>Add about yourself</span>
+                                          }
+
                                     </div>
                               </div>
                               <div>
@@ -40,11 +43,11 @@ const Profile = () => {
                         </div>
                         <div>
                               <h1 className="text-2xl font-mono font-bold">Skills</h1>
-                              {user?.profile?.skills.length !== 0 ? user?.profile?.skills.map((item, index) => <Badge className=' font-mono mr-2 mt-3 px-3 cursor-default text-lg bg-gray-700 text-white hover:bg-gray-800' key={index}>{item}</Badge>) : <span className="text-lg">Add your skills</span>}
+                              {user?.profile?.skills?.length > 0 || user?.profile?.skills === "undefined" ? user?.profile?.skills?.map((item, index) => <Badge className=' font-mono mr-2 mt-3 px-3 cursor-default text-lg bg-gray-700 text-white hover:bg-gray-800' key={index}>{item}</Badge>) : <span className="cursor-pointer text-lg" onClick={() => setOpen(true)}>Add your skills</span>}
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-1.5 my-3">
                               <label className="text-2xl font-bold font-mono">Resume</label>
-                              {user?.profile?.resume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer text-blue-800 hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono">Add your resume</span>}
+                              {user?.profile?.resume ? <a target="blank" href={user?.profile?.resume} className="text-xl font-serif font-semibold cursor-pointer text-blue-800 hover:underline hover:text-blue-700">{user?.profile?.resumeOriginalName}</a> : <span className="text-lg font-mono cursor-pointer" onClick={() => setOpen(true)}>Add your resume</span>}
                         </div>
                   </div>
                   <div className="my-5 max-w-5xl mx-auto w-full bg-white rounded-2xl">
