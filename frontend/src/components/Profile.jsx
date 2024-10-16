@@ -43,7 +43,7 @@ const Profile = () => {
                         </div>
                         <div>
                               <h1 className="text-2xl font-mono font-bold">Skills</h1>
-                              {user?.profile?.skills?.length > 0 || user?.profile?.skills === "undefined" ? user?.profile?.skills?.map((item, index) => <Badge className=' font-mono mr-2 mt-3 px-3 cursor-default text-lg bg-gray-700 text-white hover:bg-gray-800' key={index}>{item}</Badge>) : <span className="cursor-pointer text-lg" onClick={() => setOpen(true)}>Add your skills</span>}
+                              {user?.profile?.skills?.length > 0 && !user?.profile?.skills?.includes("undefined") ? user?.profile?.skills?.map((item, index) => <Badge className=' font-mono mr-2 mt-3 px-3 cursor-default text-lg bg-gray-700 text-white hover:bg-gray-800' key={index}>{item}</Badge>) : <span className="cursor-pointer text-lg" onClick={() => setOpen(true)}>Add your skills</span>}
                         </div>
                         <div className="grid w-full max-w-sm items-center gap-1.5 my-3">
                               <label className="text-2xl font-bold font-mono">Resume</label>
