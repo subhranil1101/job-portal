@@ -18,6 +18,14 @@ export const register = async (req, res) => {
                   })
             }
 
+            //details validation checks
+            if (fullName.length < 3 || !email.includes("@") || phoneNo.length < 10) {
+                  return res.status(500).json({
+                        message: "Something is wrong",
+                        success: false
+                  })
+            }
+
             //cloudinary setup for dp
             const file = req.file
             const fileUri = getDataUri(file)
@@ -139,6 +147,15 @@ export const updateProfile = async (req, res) => {
       try {
             //fetching from request body
             const { fullName, email, phoneNo, bio, skills } = req.body;
+
+            //details validation checks
+            if (fullName.length < 3 || !email.includes("@") || phoneNo.length < 10) {
+                  return res.status(500).json({
+                        message: "Something is wrong",
+                        success: false
+                  })
+            }
+
             // const file = req.file
 
             const profilePhoto = req.files?.profilePhoto?.[0];

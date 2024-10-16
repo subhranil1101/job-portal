@@ -133,7 +133,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                                                 </Button>
                                           ) : (
                                                 <Button
-                                                      disabled={!input.fullName || !input.email || !input.phoneNo || input.fullName.length < 3 || input.phoneNo.length !== 10 || !input.email.includes("@")}
+                                                      disabled={!input.fullName || !input.email || !input.phoneNo}
                                                       type="submit"
                                                       className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                                 >
