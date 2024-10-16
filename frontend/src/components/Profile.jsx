@@ -51,7 +51,7 @@ const Profile = () => {
                         </div>
                   </div>
                   <div className="my-5 max-w-5xl mx-auto w-full bg-white rounded-2xl">
-                        <h1 className="text-center text-2xl font-mono font-bold" >Applied Jobs</h1>
+                        <h1 className="text-center text-2xl font-mono font-bold" >Applied Jobs & Their Status Wise Table</h1>
                         <hr className="mt-2" />
                         <AppliedJobTable />
                   </div>
