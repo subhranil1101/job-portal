@@ -10,8 +10,10 @@ import { useSelector } from "react-redux"
 import useGetCompanyById from "@/hooks/useGetCompanyById"
 
 const CompanySetup = () => {
+      let isLogo = false
+      const [previewUrl, setPreviewUrl] = useState(null);
       const fileInputRef = useRef(null);
-      const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+      // const [isButtonDisabled, setIsButtonDisabled] = useState(true);
       const [input, setInput] = useState({
             name: "",
             description: "",
@@ -33,12 +35,23 @@ const CompanySetup = () => {
             const file = e.target.files?.[0]
             setInput({ ...input, file })
 
-            if (fileInputRef.current.files.length > 0) {
-                  setIsButtonDisabled(false);
-            } else {
-                  setIsButtonDisabled(true);
+
+            if (singleCompany?.logo || previewUrl) isLogo = true
+            // else if (previewUrl) isLogo = true
+            else isLogo = false
+            console.log(isLogo)
+
+            // if (isLogo) {
+            //       setIsButtonDisabled(false);
+            // } else {
+            //       setIsButtonDisabled(true);
+            // }
+
+            if (file) {
+                  setPreviewUrl(URL.createObjectURL(file)); // Create a preview URL
             }
       }
+
 
       const submitHandler = async (e) => {
             e.preventDefault()
@@ -93,7 +106,7 @@ const CompanySetup = () => {
                                     <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold'><ArrowLeft />&nbsp;Back</Button>
                                     <h1 className="text-4xl font-bold font-mono">Company Setup</h1>
                               </div>
-                              <div className=" grid grid-cols-2 gap-5 my-10 px-5">
+                              <div className=" grid grid-cols-2 gap-5 mt-10 px-5">
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="name" className="text-xl font-semibold px-2">Company Name</label>
                                           <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="name" value={input.name} onChange={changeEventHandler} />
@@ -111,24 +124,60 @@ const CompanySetup = () => {
                                           <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="location" value={input.location} onChange={changeEventHandler} />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                          <label htmlFor="file" className="text-xl font-semibold px-2">Company Logo</label>
+                                          <label htmlFor="file" className="text-xl font-semibold px-2">Company Logo*</label>
                                           <input className="px-2 py-1 text-xl rounded-full border border-black" type="file" accept="image/*" onChange={changeFileHandler} ref={fileInputRef} />
                                     </div>
+
+                                    <div className="flex items-center justify-start gap-1">
+                                          <label htmlFor="file" className="text-xl font-semibold px-2">
+                                                Company Logo =&gt;
+                                          </label>
+                                          {
+                                                singleCompany?.logo ? <img src={singleCompany?.logo} alt="Add a company logo" className="w-24 h-24" /> : <img src={previewUrl} alt="Add a company logo" className="w-24 h-24" />
+                                          }
+                                    </div>
+                                    {/* <div className="flex items-center justify-start gap-1">
+                                          <label htmlFor="file" className="text-xl font-semibold px-2">{previewUrl ? <span>Preview =&gt;</span> : <span className="text-sm text-red-500">*Select a image for preview</span>}</label>
+                                          {previewUrl && (
+                                                <div>
+                                                      <img
+                                                            src={previewUrl}
+                                                            alt="File preview"
+                                                            className="w-24 h-24 object-cover"
+                                                      />
+                                                </div>
+                                          )}
+
+                                    </div> */}
+
                               </div>
-                              {loading ? (
-                                    <Button className="cursor-not-allowed py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
-                                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                          Please wait..
-                                    </Button>
-                              ) : (
-                                    <Button
-                                          disabled={isButtonDisabled}
-                                          type="submit"
-                                          className=" py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
-                                    >
-                                          Update
-                                    </Button>
-                              )}
+                              {
+                                    loading ? (
+                                          <Button className="cursor-not-allowed pb-2 mb-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                Please wait..
+                                          </Button>
+                                    ) : (
+                                          <div>
+                                                {
+                                                      previewUrl || singleCompany?.logo ? <Button
+                                                            // disabled={!previewUrl || !singleCompany?.logo}
+                                                            type="submit"
+                                                            className=" pb-2 mb-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
+                                                      >
+                                                            Update
+                                                      </Button>
+                                                            : <Button
+                                                                  // disabled={!previewUrl || !singleCompany?.logo}
+                                                                  type="submit"
+                                                                  className=" pb-2 mb-5 border border-slate-200 bg-gray-600 text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-gray-600 cursor-not-allowed"
+                                                            >
+                                                                  Update
+                                                            </Button>
+                                                }
+                                          </div>
+                                    )
+                              }
                         </form>
                   </div>
             </div>
