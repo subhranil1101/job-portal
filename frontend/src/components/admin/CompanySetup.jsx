@@ -128,14 +128,25 @@ const CompanySetup = () => {
                                           <input className="px-2 py-1 text-xl rounded-full border border-black" type="file" accept="image/*" onChange={changeFileHandler} ref={fileInputRef} />
                                     </div>
 
-                                    <div className="flex items-center justify-start gap-1">
+                                    {/* <div className="flex items-center justify-start gap-1">
                                           <label htmlFor="file" className="text-xl font-semibold px-2">
                                                 Company Logo =&gt;
                                           </label>
                                           {
-                                                singleCompany?.logo ? <img src={singleCompany?.logo} alt="Add a company logo" className="w-24 h-24" /> : <img src={previewUrl} alt="Add a company logo" className="w-24 h-24" />
+                                                singleCompany?.logo && !previewUrl &&
+                                                <img
+                                                      src={singleCompany?.logo}
+                                                      alt="Add a company logo"
+                                                      className="w-24 h-24"
+                                                />
                                           }
-                                    </div>
+
+                                          <img
+                                                src={previewUrl}
+                                                alt="Add a company logo"
+                                                className="w-24 h-24"
+                                          />
+                                    </div> */}
                                     {/* <div className="flex items-center justify-start gap-1">
                                           <label htmlFor="file" className="text-xl font-semibold px-2">{previewUrl ? <span>Preview =&gt;</span> : <span className="text-sm text-red-500">*Select a image for preview</span>}</label>
                                           {previewUrl && (
@@ -150,10 +161,27 @@ const CompanySetup = () => {
 
                                     </div> */}
 
+                                    <div className="flex items-center justify-start gap-1">
+                                          <label htmlFor="file" className="text-xl font-semibold px-2">
+                                                Company Logo =&gt;
+                                          </label>
+                                          {
+                                                previewUrl || singleCompany?.logo ? (
+                                                      <img
+                                                            src={previewUrl || singleCompany?.logo}
+                                                            alt="Company logo"
+                                                            className="w-24 h-24 object-cover"
+                                                      />
+                                                ) : (
+                                                      <p className="text-red-500">*Select a logo for your company</p>
+                                                )
+                                          }
+                                    </div>
+
                               </div>
                               {
                                     loading ? (
-                                          <Button className="cursor-not-allowed pb-2 mb-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
+                                          <Button className="cursor-not-allowed py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
                                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                                 Please wait..
                                           </Button>
@@ -163,14 +191,14 @@ const CompanySetup = () => {
                                                       previewUrl || singleCompany?.logo ? <Button
                                                             // disabled={!previewUrl || !singleCompany?.logo}
                                                             type="submit"
-                                                            className=" pb-2 mb-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
+                                                            className=" py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                                       >
                                                             Update
                                                       </Button>
                                                             : <Button
                                                                   // disabled={!previewUrl || !singleCompany?.logo}
                                                                   type="submit"
-                                                                  className=" pb-2 mb-5 border border-slate-200 bg-gray-600 text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-gray-600 cursor-not-allowed"
+                                                                  className=" py-2 my-5 border border-slate-200 bg-gray-600 text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-gray-600 cursor-not-allowed"
                                                             >
                                                                   Update
                                                             </Button>
