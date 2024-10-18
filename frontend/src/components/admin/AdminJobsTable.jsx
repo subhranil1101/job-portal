@@ -4,6 +4,9 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { useSelector } from "react-redux"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { Avatar, AvatarImage } from "../ui/avatar"
+import { motion } from "framer-motion"
+
 
 const AdminJobsTable = () => {
       const navigate = useNavigate()
@@ -20,12 +23,12 @@ const AdminJobsTable = () => {
             setFilterJobs(filteredJob)
       }, [allAdminJobs, searchJobByName])
       return (
-            <div>
+            <div className="border border-black p-5 rounded-3xl shadow-lg">
                   <Table>
-                        <TableCaption>A List of Your Posted Jobs</TableCaption>
+                        <TableCaption className="text-blue-900 font-medium text-base italic">A List of Your Posted Jobs</TableCaption>
                         <TableHeader>
-                              <TableRow>
-                                    <TableHead>Company</TableHead>
+                              <TableRow className="text-xl font-serif shadow shadow-slate-700">
+                                    <TableHead>Company Details</TableHead>
                                     <TableHead>Job Role</TableHead>
                                     <TableHead>Date</TableHead>
                                     <TableHead className='text-right'>Action</TableHead>
@@ -33,9 +36,24 @@ const AdminJobsTable = () => {
                         </TableHeader>
                         <TableBody>
                               {filterJobs?.map((job) => (
-                                    <tr key={job._id}>
-                                          <TableCell className="text-xl font-bold">{job?.company?.name || "Add company Name"}</TableCell>
-                                          <TableCell>{job?.title || "Add company location"}</TableCell>
+                                    <motion.tr
+                                          initial={{ opacity: 0, x: -100 }}
+                                          animate={{ opacity: 1, x: 0 }}
+                                          exit={{ opacity: 0, x: 100 }}
+                                          transition={{ duration: 0.4 }}
+                                          key={job._id}>
+                                          <TableCell
+                                                className="text-xl font-bold"
+                                          >
+                                                <div className="flex items-center  gap-2">
+                                                      <Avatar className="drop-shadow-xl">
+                                                            <AvatarImage src={job?.company?.logo} />
+                                                      </Avatar>
+                                                      {job?.company?.name}
+                                                </div>
+                                          </TableCell>
+
+                                          <TableCell className="text-xl font-medium">{job?.title}</TableCell>
                                           <TableCell>{job?.createdAt.split("T")[0]}</TableCell>
                                           <TableCell className='text-right'>
                                                 <Popover>
@@ -56,7 +74,7 @@ const AdminJobsTable = () => {
                                                       </PopoverContent>
                                                 </Popover>
                                           </TableCell>
-                                    </tr>
+                                    </motion.tr>
                               ))}
                         </TableBody>
                   </Table>
