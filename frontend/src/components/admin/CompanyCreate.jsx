@@ -47,7 +47,7 @@ const CompanyCreate = () => {
                         </div>
                         <div className="flex gap-5 items-center justify-center my-8">
                               <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold'>Cancel</Button>
-                              <Button onClick={registerNewCompany} className='text-base bg-green-300 hover:bg-green-500 rounded-full'>Continue &nbsp;<ArrowRight /></Button>
+                              <Button onClick={registerNewCompany} className='text-base bg-green-600 hover:bg-green-500 rounded-full' disabled={!companyName || companyName.length <= 2}>Continue &nbsp;<ArrowRight /></Button>
                         </div>
                   </div>
             </div>
