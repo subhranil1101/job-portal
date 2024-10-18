@@ -30,7 +30,7 @@ const Navbar = () => {
 
       return (
             <div className="bg-white flex justify-between my-2 items-center mx-auto max-w-[90%] h-16">
-                  <Link to='/'><div className="text-3xl font-bold">
+                  <Link to={!user ? '/' : user?.role === 'student' ? '/' : '/admin/companies'}><div className="text-3xl font-bold">
                         Job<span className="text-blue-600">Cat</span>
                   </div></Link>
                   <div className="flex justify-between gap-12 items-center">

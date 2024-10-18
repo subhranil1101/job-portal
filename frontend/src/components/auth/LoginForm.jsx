@@ -32,7 +32,11 @@ const LoginForm = () => {
                   });
                   if (res.data.success) {
                         dispatch(setUser(res.data.user))
-                        navigate("/");
+                        if (input.role === 'recruiter') {
+                              navigate("/admin/companies")
+                        } else {
+                              navigate("/");
+                        }
                         toast.success(res.data.message);
                   }
             } catch (error) {
