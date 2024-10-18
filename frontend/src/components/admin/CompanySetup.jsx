@@ -100,13 +100,28 @@ const CompanySetup = () => {
       const isWebsiteInvalid = input.website === "" || input.website === "https://" || input.website.length <= 8;
 
 
+      const urlPattern = new RegExp(
+            '^(https?:\\/\\/)?' + // protocol (optional)
+            '((([a-zA-Z0-9$._%+-]+)@)?[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6})' + // domain name and extension
+            '(\\:[0-9]{1,5})?' + // port (optional)
+            '(\\/.*)?$', // path (optional)
+            'i'
+      );
+
+      // console.log(!!urlPattern.test(input.website))
+
+
+
       return (
             <div>
                   <Navbar />
                   <div className="max-w-4xl mx-auto my-10">
                         <form onSubmit={submitHandler}>
                               <div className="flex items-center gap-10 my-10 px-5">
-                                    <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold' disabled={isWebsiteInvalid}><ArrowLeft />&nbsp;Back</Button>
+                                    <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold'
+                                          // disabled={isWebsiteInvalid}
+                                          disabled={isWebsiteInvalid || !urlPattern.test(input.website) || (!previewUrl && !singleCompany?.logo)}
+                                    ><ArrowLeft />&nbsp;Back</Button>
                                     <h1 className="text-4xl font-bold font-mono">Company Setup</h1>
                               </div>
                               <div className=" grid grid-cols-2 gap-5 mt-10 px-5">
@@ -220,12 +235,15 @@ const CompanySetup = () => {
                                     ) : (
                                           <div>
                                                 {
-                                                      (isWebsiteInvalid || (!previewUrl && !singleCompany?.logo)) && <div className="text-center pt-5 text-red-500 font-medium">*Company Website & Company Logo must be updated here</div>
+                                                      (isWebsiteInvalid || (!previewUrl && !singleCompany?.logo)) && <div className="text-center pt-5 text-red-500 font-medium">*Company Website & Company Logo must be updated here before posting a job</div>
+                                                }
+                                                {
+                                                      (!urlPattern.test(input.website)) && <div className="text-center pt-5 text-red-500 font-medium">*Enter valid website URL.</div>
                                                 }
                                                 <Button
                                                       type="submit"
                                                       className={`py-2 my-5 border border-slate-200 w-full mx-auto text-lg font-mono font-bold rounded-xl ${isWebsiteInvalid ? 'bg-gray-600 hover:bg-gray-600 cursor-not-allowed' : 'bg-black text-white hover:bg-slate-800'}`}
-                                                      disabled={isWebsiteInvalid || (!previewUrl && !singleCompany?.logo)}
+                                                      disabled={isWebsiteInvalid || !urlPattern.test(input.website) || (!previewUrl && !singleCompany?.logo)}
                                                 >
                                                       Update
                                                 </Button>
