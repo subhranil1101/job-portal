@@ -115,8 +115,8 @@ const CompanySetup = () => {
       return (
             <div>
                   <Navbar />
-                  <div className="max-w-4xl mx-auto my-10">
-                        <form onSubmit={submitHandler}>
+                  <div className="max-w-5xl mx-auto my-10">
+                        <form onSubmit={submitHandler} className="border border-black p-2 rounded-3xl shadow-xl">
                               <div className="flex items-center gap-10 my-10 px-5">
                                     <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold'
                                           // disabled={isWebsiteInvalid}
@@ -131,7 +131,7 @@ const CompanySetup = () => {
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="description" className="text-xl font-semibold px-2">Description</label>
-                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="description" value={input.description} onChange={changeEventHandler} />
+                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="description" placeholder="Enter company description" value={input.description} onChange={changeEventHandler} />
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="website" className="text-xl font-semibold px-2">Company Website*</label>
@@ -139,7 +139,7 @@ const CompanySetup = () => {
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="location" className="text-xl font-semibold px-2">Company Location</label>
-                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="location" value={input.location} onChange={changeEventHandler} />
+                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="location" placeholder="Enter Company Location" value={input.location} onChange={changeEventHandler} />
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="file" className="text-xl font-semibold px-2">Company Logo*</label>
