@@ -97,13 +97,16 @@ const CompanySetup = () => {
 
       useGetCompanyById(params.id)
 
+      const isWebsiteInvalid = input.website === "" || input.website === "https://" || input.website.length <= 8;
+
+
       return (
             <div>
                   <Navbar />
                   <div className="max-w-4xl mx-auto my-10">
                         <form onSubmit={submitHandler}>
                               <div className="flex items-center gap-10 my-10 px-5">
-                                    <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold'><ArrowLeft />&nbsp;Back</Button>
+                                    <Button onClick={() => navigate("/admin/companies")} className='text-base border border-black hover:bg-gray-100 rounded-full font-semibold' disabled={isWebsiteInvalid}><ArrowLeft />&nbsp;Back</Button>
                                     <h1 className="text-4xl font-bold font-mono">Company Setup</h1>
                               </div>
                               <div className=" grid grid-cols-2 gap-5 mt-10 px-5">
@@ -116,8 +119,8 @@ const CompanySetup = () => {
                                           <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="description" value={input.description} onChange={changeEventHandler} />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                          <label htmlFor="website" className="text-xl font-semibold px-2">Company Website</label>
-                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="website" value={input.website} onChange={changeEventHandler} />
+                                          <label htmlFor="website" className="text-xl font-semibold px-2">Company Website*</label>
+                                          <input className="px-2 py-1 text-xl rounded-full border border-black" type="text" name="website" placeholder="https://example.com" value={input.website} onChange={changeEventHandler} />
                                     </div>
                                     <div className="flex flex-col gap-1">
                                           <label htmlFor="location" className="text-xl font-semibold px-2">Company Location</label>
@@ -179,7 +182,7 @@ const CompanySetup = () => {
                                     </div>
 
                               </div>
-                              {
+                              {/* {
                                     loading ? (
                                           <Button className="cursor-not-allowed py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
                                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -204,6 +207,30 @@ const CompanySetup = () => {
                                                             </Button>
                                                 }
                                           </div>
+                                    )
+                              } */}
+
+
+                              {
+                                    loading ? (
+                                          <Button className="cursor-not-allowed py-2 my-5 border border-slate-200 bg-black text-white w-full mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
+                                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                                Please wait..
+                                          </Button>
+                                    ) : (
+                                          <div>
+                                                {
+                                                      (isWebsiteInvalid || (!previewUrl && !singleCompany?.logo)) && <div className="text-center pt-5 text-red-500 font-medium">*Company Website & Company Logo must be updated here</div>
+                                                }
+                                                <Button
+                                                      type="submit"
+                                                      className={`py-2 my-5 border border-slate-200 w-full mx-auto text-lg font-mono font-bold rounded-xl ${isWebsiteInvalid ? 'bg-gray-600 hover:bg-gray-600 cursor-not-allowed' : 'bg-black text-white hover:bg-slate-800'}`}
+                                                      disabled={isWebsiteInvalid || (!previewUrl && !singleCompany?.logo)}
+                                                >
+                                                      Update
+                                                </Button>
+                                          </div>
+
                                     )
                               }
                         </form>
