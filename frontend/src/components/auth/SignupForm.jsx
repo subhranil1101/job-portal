@@ -64,12 +64,12 @@ const SignupForm = () => {
       };
 
       return (
-            <div className="border border-gray-600 rounded-xl w-[60%] bg-slate-300">
+            <div className="border border-gray-600 rounded-xl w-[60%] bg-slate-300 shadow-2xl shadow-slate-900">
                   <form onSubmit={onSubmit} className="flex flex-col gap-7 text-2xl p-6">
                         <div className="w-full flex flex-col">
                               <input
                                     placeholder="Enter full name"
-                                    className="border border-black  rounded-xl px-3 py-1.5"
+                                    className="border border-black bg-slate-100 focus:bg-white  rounded-xl px-3 py-1.5"
                                     type="text"
                                     name="fullName"
                                     value={input.fullName}
@@ -80,7 +80,7 @@ const SignupForm = () => {
                         <div className="w-full flex flex-col">
                               <input
                                     placeholder=" Enter your email"
-                                    className="border border-black rounded-xl py-1.5 px-3"
+                                    className="border border-black bg-slate-100 focus:bg-white rounded-xl py-1.5 px-3"
                                     type="email"
                                     name="email"
                                     value={input.email}
@@ -91,7 +91,7 @@ const SignupForm = () => {
                         <div className="w-full flex flex-col">
                               <input
                                     placeholder=" Enter your mobile no."
-                                    className="border border-black rounded-xl px-3 py-1.5"
+                                    className="border border-black bg-slate-100 focus:bg-white rounded-xl px-3 py-1.5"
                                     type="text"
                                     name="phoneNo"
                                     value={input.phoneNo}
@@ -103,62 +103,71 @@ const SignupForm = () => {
                               <input
                                     placeholder=" Enter a password"
                                     type="password"
-                                    className="border border-black rounded-xl px-3 py-1.5"
+                                    className="border border-black bg-slate-100 focus:bg-white rounded-xl px-3 py-1.5"
                                     name="password"
                                     value={input.password}
                                     onChange={changeEventHandler}
                               />
                         </div>
 
+
                         <div className="flex justify-between">
-                              <div className="text-lg flex gap-6">
-                                    <span className="flex items-center">
-                                          <input
-                                                id="student"
-                                                type="radio"
-                                                name="role"
-                                                value="student"
-                                                onChange={changeEventHandler}
-                                                className="w-10 h-5 accent-blue-950 bg-gray-100 border-gray-300 cursor-pointer"
-                                          />
-                                          <label htmlFor="student" className="font-semibold">
-                                                Student
-                                          </label>
-                                    </span>
-                                    <span className="flex items-center">
-                                          <input
-                                                id="recruiter"
-                                                type="radio"
-                                                name="role"
-                                                value="recruiter"
-                                                onChange={changeEventHandler}
-                                                className="w-10 h-5 accent-blue-950 bg-gray-100 border-gray-300 cursor-pointer"
-                                          />
-                                          <label htmlFor="student" className="font-semibold">
-                                                Recruiter
-                                          </label>
-                                    </span>
+                              <div className="flex flex-col gap-3 justify-center">
+                                    <label className="text-xl left-0 px-3 font-medium">Select Your Role*</label>
+                                    <div className="text-lg flex gap-6">
+                                          <span className="flex items-center">
+                                                <input
+                                                      id="student"
+                                                      type="radio"
+                                                      name="role"
+                                                      value="student"
+                                                      onChange={changeEventHandler}
+                                                      className="w-10 h-5 accent-blue-950 bg-gray-100 border-gray-300 cursor-pointer"
+                                                />
+                                                <label htmlFor="student" className="font-semibold">
+                                                      Student
+                                                </label>
+                                          </span>
+                                          <span className="flex items-center">
+                                                <input
+                                                      id="recruiter"
+                                                      type="radio"
+                                                      name="role"
+                                                      value="recruiter"
+                                                      onChange={changeEventHandler}
+                                                      className="w-10 h-5 accent-blue-950 bg-gray-100 border-gray-300 cursor-pointer"
+                                                />
+                                                <label htmlFor="student" className="font-semibold">
+                                                      Recruiter
+                                                </label>
+                                          </span>
+                                    </div>
                               </div>
-                              <div className="flex text-lg my-1 gap-2">
-                                    <label className="font-semibold">Profile</label>
-                                    <input
-                                          accept="image/*"
-                                          type="file"
-                                          name="file"
-                                          id="file"
-                                          onChange={changeFileHandler}
-                                          className="cursor-pointer w-fit text-sm disable"
-                                    />
+                              <div className="flex flex-col text-sm justify-center my-1 gap-2">
+                                    <div className="flex text-lg  gap-3">
+                                          <label className="font-semibold">Profile</label>
+                                          <input
+                                                accept="image/*"
+                                                type="file"
+                                                name="file"
+                                                id="file"
+                                                onChange={changeFileHandler}
+                                                className="cursor-pointer w-fit text-sm disable"
+                                          />
+                                    </div>
+                                    {!input?.file && <span className="text-red-500">*You can also update profile photo later on</span>}
+
                               </div>
                         </div>
                         <div className="flex flex-col gap-2 w-full">
                               {loading ? (
                                     <Button className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800">
                                           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                          Please wait..
+                                          Please wait...
                                     </Button>
                               ) : (
                                     <Button
+                                          disabled={!input?.role}
                                           type="submit"
                                           className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                     >
