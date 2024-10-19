@@ -2,7 +2,7 @@ import { LogOut, User2 } from "lucide-react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import axios from "axios";
@@ -30,32 +30,34 @@ const Navbar = () => {
 
       return (
             <div className="bg-white flex justify-between my-2 items-center mx-auto max-w-[90%] h-16">
-                  <Link to={!user ? '/' : user?.role === 'student' ? '/' : '/admin/companies'}><div className="text-3xl font-bold">
-                        Job<span className="text-blue-600">Cat</span>
-                  </div></Link>
+                  <Link to={!user ? '/' : user?.role === 'student' ? '/' : '/admin/companies'}>
+                        <div className="text-3xl font-bold drop-shadow-xl shadow-black">
+                              Job<span className="text-blue-600 drop-shadow-xl">Cat</span>
+                        </div>
+                  </Link>
                   <div className="flex justify-between gap-12 items-center">
                         <ul className="flex gap-6 text-xl font-bold items-center">
                               {
                                     user && user.role === 'recruiter' ? (
                                           <>
-                                                <li> <Link to='/admin/companies'>Companies</Link> </li>
-                                                <li> <Link to='/admin/jobs'>Jobs</Link> </li>
+                                                <li> <NavLink to='/admin/companies' className={({ isActive }) => isActive ? 'text-slate-700 drop-shadow-xl' : 'text-gray-400'}>Companies</NavLink> </li>
+                                                <li> <NavLink to='/admin/jobs' className={({ isActive }) => isActive ? 'text-slate-700 drop-shadow-xl' : 'text-gray-400'}>Jobs</NavLink> </li>
                                           </>
                                     ) : (
                                           <>
-                                                <li> <Link to='/'>Home</Link> </li>
-                                                <li> <Link to='/jobs'>Jobs</Link> </li>
-                                                <li><Link to='/browse'>Browse</Link></li>
+                                                <li> <NavLink to='/' className={({ isActive }) => isActive ? 'text-slate-700 drop-shadow-xl ' : 'text-gray-400'}>Home</NavLink> </li>
+                                                <li> <NavLink to='/jobs' className={({ isActive }) => isActive ? 'text-slate-700 drop-shadow-xl' : 'text-gray-400'}>Jobs</NavLink> </li>
+                                                <li><NavLink to='/browse' className={({ isActive }) => isActive ? 'text-slate-700 drop-shadow-xl' : 'text-gray-400'}>Browse</NavLink></li>
                                           </>
                                     )}
                         </ul>
                         {!user ? (
                               <div className="flex gap-2 items-center">
                                     <Link to='/login'>
-                                          <Button className='text-base border border-slate-400 rounded-full bg-blue-200 hover:bg-blue-300'>Login</Button>
+                                          <Button className='text-base border border-slate-400 rounded-full bg-blue-200 hover:bg-blue-300 shadow-xl'>Login</Button>
                                     </Link>
                                     <Link to='/signup'>
-                                          <Button className='text-ba border border-slate-400 rounded-full bg-violet-800 text-white hover:bg-violet-700'>Sign Up</Button>
+                                          <Button className='text-ba border border-slate-400 rounded-full bg-violet-800 text-white hover:bg-violet-700 shadow-xl'>Sign Up</Button>
                                     </Link>
                               </div>
                         ) : (
