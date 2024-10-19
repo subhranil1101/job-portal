@@ -18,8 +18,11 @@ const JobDescription = () => {
       const params = useParams()
       const jobId = params.id
 
+      const [loading, setLoading] = useState(false)
+
       const applyJobHandler = async () => {
             try {
+                  setLoading(true)
                   const res = await axios.get(`${APPLICATION_API_ENDPOINT}/apply/${jobId}`, { withCredentials: true })
                   console.log(res.data)
                   if (res.data.success) {
@@ -31,6 +34,8 @@ const JobDescription = () => {
             } catch (error) {
                   console.log(error)
                   toast.error(error.response.data.message)
+            } finally {
+                  setLoading(false)
             }
       }
 
@@ -47,9 +52,17 @@ const JobDescription = () => {
                   }
             }
             fetchSingleJob();
-      }, [jobId, dispatch, user?._id])
+      }, [jobId, dispatch, user?._id, singleJob?.applications])
+
       const isInitiallyApplied = singleJob?.applications?.some(application => application.applicant === user?._id) || false;
       const [isApplied, setIsApplied] = useState(isInitiallyApplied)
+
+      const updatedApplication = singleJob?.applications?.filter(application => application.applicant === user?._id)
+
+      console.log(updatedApplication)
+      console.log(singleJob)
+
+
       return (
             <div>
                   <Navbar />
@@ -67,13 +80,40 @@ const JobDescription = () => {
                                           <Badge variant='ghost' className='text-red-600 font-bold text-sm'>{singleJob?.salary}LPA</Badge>
                                     </div>
                               </div>
-                              {isApplied ? <Button variant="outline" disabled={isApplied} className="rounded-full cursor-not-allowed bg-gray-700 text-gray-200  font-bold">
-                                    Already Applied
-                              </Button> : <Button onClick={applyJobHandler} variant="outline" className="rounded-full bg-green-800 text-white hover:bg-green-900 hover:text-white font-bold">
-                                    Apply now
-                              </Button>}
+
+                              {isApplied ?
+                                    // <Button variant="outline" disabled={isApplied} className="rounded-full cursor-not-allowed bg-gray-700 text-gray-200  font-bold">
+                                    //       Already Applied
+                                    // </Button>
+                                    <div>
+                                          {
+                                                updatedApplication.length > 0 &&
+                                                <div className="text-xl font-serif">
+                                                      Application status:&nbsp;
+                                                      <Badge
+                                                            className={
+                                                                  `text-xl font-sans font-medium my-5 text-white ${updatedApplication[0]?.status === 'accepted'
+                                                                        ? 'bg-green-700 hover:bg-green-700'
+                                                                        : updatedApplication[0]?.status === 'rejected'
+                                                                              ? 'bg-red-600 hover:bg-red-600'
+                                                                              : 'bg-black hover:bg-black'
+                                                                  }`
+                                                            }
+                                                      >
+                                                            {updatedApplication[0]?.status?.toUpperCase()}
+                                                      </Badge>
+                                                </div>
+                                          }
+                                    </div>
+                                    :
+                                    <Button onClick={applyJobHandler} variant="outline" className="rounded-full bg-green-800 text-white hover:bg-green-900 hover:text-white font-bold">
+                                          Apply now
+                                    </Button>
+                              }
                         </div>
+
                         <h1 className="text-3xl font-medium  my-5 font-mono">Job Description</h1>
+
                         <hr className="mt-2" />
                         <div className="my-2">
                               <h1 className="text-lg  my-1 font-bold">Role: <span className="pl-2 font-normal ">{singleJob?.title}</span></h1>
@@ -85,7 +125,14 @@ const JobDescription = () => {
                               <h1 className="text-lg  my-1 font-bold">Posted Date: <span className="pl-2 font-normal ">{singleJob?.createdAt.split("T")[0]}</span></h1>
                         </div>
                   </div>
-            </div>
+                  {
+                        loading &&
+                        <img
+                              className="absolute z-10  w-52 h-52 left-[42%] top-[40%] animate-spin"
+                              src="https://openclipart.org/image/2000px/311354"
+                              alt="loader" />
+                  }
+            </div >
       )
 }
 
