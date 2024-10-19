@@ -48,7 +48,7 @@ const LoginForm = () => {
       };
 
       return (
-            <div className="border border-gray-600 rounded-xl w-[60%] bg-slate-300">
+            <div className="border border-gray-600 rounded-xl w-[60%] bg-slate-300 shadow-2xl shadow-slate-900">
                   <form
                         onSubmit={submitHandler}
                         className="flex flex-col gap-7 text-2xl p-6"
@@ -60,7 +60,7 @@ const LoginForm = () => {
                                     value={input.email}
                                     onChange={changeEventHandler}
                                     placeholder=" Enter your email"
-                                    className="border border-black rounded-xl py-1.5 px-3"
+                                    className="border border-black bg-slate-100 focus:bg-white rounded-xl py-1.5 px-3"
                               />
                         </div>
 
@@ -71,7 +71,7 @@ const LoginForm = () => {
                                     value={input.password}
                                     name="password"
                                     onChange={changeEventHandler}
-                                    className="border border-black rounded-xl px-3 py-1.5"
+                                    className="border border-black bg-slate-100 focus:bg-white rounded-xl px-3 py-1.5"
                               />
                         </div>
 
@@ -112,6 +112,7 @@ const LoginForm = () => {
                                     </Button>
                               ) : (
                                     <Button
+                                          disabled={!input?.role}
                                           type="submit"
                                           className="border border-slate-200 bg-black text-white w-3/4 mx-auto text-lg font-mono font-bold rounded-xl hover:bg-slate-800"
                                     >

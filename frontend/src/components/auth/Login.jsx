@@ -17,7 +17,7 @@ const Login = () => {
             <div className="w-full">
                   <Navbar />
                   <div className=" w-full flex flex-col gap-6 justify-center items-center">
-                        <h1 className="text-4xl font-bold font font-mono my-3">Login here</h1>
+                        <h1 className="text-4xl font-bold font-sans my-3">Login here</h1>
                         <LoginForm />
                   </div>
             </div>
