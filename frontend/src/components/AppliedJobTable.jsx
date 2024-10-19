@@ -1,9 +1,12 @@
 import { useSelector } from "react-redux"
 import { Badge } from "./ui/badge"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "./ui/table"
+import { SquareArrowOutUpRight } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
 const AppliedJobTable = () => {
       const { allAppliedJobs } = useSelector(store => store.job)
+      const navigate = useNavigate()
 
       const pendingJobs = allAppliedJobs.filter(job => job.status === 'pending');
       const rejectedJobs = allAppliedJobs.filter(job => job.status === 'rejected');
@@ -24,14 +27,13 @@ const AppliedJobTable = () => {
                                                 <Table className="my-10 border border-black bg-slate-100 shadow-xl">
                                                       <TableCaption>
                                                             A list of your Pending Applications
-
                                                       </TableCaption>
                                                       <TableHeader className='text-xl font-mono'>
-                                                            <TableRow>
-                                                                  <TableHead>Date</TableHead>
-                                                                  <TableHead>Job Role</TableHead>
-                                                                  <TableHead>Company</TableHead>
-                                                                  <TableHead className='text-right'>Status</TableHead>
+                                                            <TableRow className='shadow shadow-slate-800'>
+                                                                  <TableHead className="font-bold">Date</TableHead>
+                                                                  <TableHead className="font-bold">Job Role</TableHead>
+                                                                  <TableHead className="font-bold">Company</TableHead>
+                                                                  <TableHead className='text-right font-bold'>Status</TableHead>
                                                             </TableRow>
                                                       </TableHeader>
                                                       <TableBody className="text-lg">
@@ -39,7 +41,15 @@ const AppliedJobTable = () => {
                                                                   pendingJobs.map((appliedJob) => (
                                                                         <TableRow key={appliedJob._id}>
                                                                               <TableCell>{appliedJob.createdAt.split("T")[0]}</TableCell>
-                                                                              <TableCell>{appliedJob.job.title}</TableCell>
+                                                                              <TableCell>
+                                                                                    <div className="flex gap-2 items-center">
+                                                                                          {appliedJob.job.title}
+                                                                                          <SquareArrowOutUpRight
+                                                                                                onClick={() => navigate(`/jobs/description/${appliedJob?.job?._id}`)}
+                                                                                                size={20}
+                                                                                                className="text-gray-600 cursor-pointer" />
+                                                                                    </div>
+                                                                              </TableCell>
                                                                               <TableCell>{appliedJob.job.company.name}</TableCell>
                                                                               <TableCell className="text-right">
                                                                                     <Badge className='bg-black hover:bg-black  text-white text-sm'>
@@ -61,7 +71,7 @@ const AppliedJobTable = () => {
                                                 <Table className="my-10 border border-black bg-green-100 shadow-xl">
                                                       <TableCaption>A list of your Accepted Applications</TableCaption>
                                                       <TableHeader className='text-xl font-mono'>
-                                                            <TableRow>
+                                                            <TableRow className='shadow shadow-green-800'>
                                                                   <TableHead className="font-bold">Apply Date</TableHead>
                                                                   <TableHead className="font-bold">Update Date</TableHead>
                                                                   <TableHead className="font-bold">Job Role</TableHead>
@@ -75,7 +85,16 @@ const AppliedJobTable = () => {
                                                                         <TableRow key={appliedJob._id}>
                                                                               <TableCell>{appliedJob.createdAt.split("T")[0]}</TableCell>
                                                                               <TableCell>{appliedJob.updatedAt.split("T")[0]}</TableCell>
-                                                                              <TableCell>{appliedJob.job.title}</TableCell>
+                                                                              <TableCell>
+                                                                                    <div className="flex gap-2 items-center">
+                                                                                          {appliedJob.job.title}
+                                                                                          <SquareArrowOutUpRight
+                                                                                                onClick={() => navigate(`/jobs/description/${appliedJob?.job?._id}`)}
+                                                                                                size={20}
+                                                                                                className="text-gray-600 cursor-pointer"
+                                                                                          />
+                                                                                    </div>
+                                                                              </TableCell>
                                                                               <TableCell>{appliedJob.job.company.name}</TableCell>
                                                                               <TableCell className="text-right">
                                                                                     <Badge className='text-white text-sm bg-green-700 hover:bg-green-700'>
@@ -94,7 +113,7 @@ const AppliedJobTable = () => {
                                                 *No Applications are rejected
                                           </span>
                                                 :
-                                                <Table className="my-5 border border-black bg-red-100 shadow-xl">
+                                                <Table className="my-10 border border-black bg-red-100 shadow-xl">
                                                       <TableCaption>A list of your Rejected Applications</TableCaption>
                                                       <TableHeader className='text-xl font-mono'>
                                                             <TableRow>
@@ -111,7 +130,15 @@ const AppliedJobTable = () => {
                                                                         <TableRow key={appliedJob._id}>
                                                                               <TableCell>{appliedJob.createdAt.split("T")[0]}</TableCell>
                                                                               <TableCell>{appliedJob.updatedAt.split("T")[0]}</TableCell>
-                                                                              <TableCell>{appliedJob.job.title}</TableCell>
+                                                                              <TableCell>
+                                                                                    <div className="flex gap-2 items-center">
+                                                                                          {appliedJob.job.title}
+                                                                                          <SquareArrowOutUpRight
+                                                                                                onClick={() => navigate(`/jobs/description/${appliedJob?.job?._id}`)}
+                                                                                                size={20}
+                                                                                                className="text-gray-600 cursor-pointer" />
+                                                                                    </div>
+                                                                              </TableCell>
                                                                               <TableCell>{appliedJob.job.company.name}</TableCell>
                                                                               <TableCell className="text-right">
                                                                                     <Badge className="bg-red-600 hover:bg-red-600 text-white text-sm">
