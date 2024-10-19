@@ -27,9 +27,24 @@ export const register = async (req, res) => {
             }
 
             //cloudinary setup for dp
-            const file = req.file
-            const fileUri = getDataUri(file)
-            const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+            // const file = req.file
+            // const fileUri = getDataUri(file)
+            // const cloudResponse = await cloudinary.uploader.upload(fileUri.content)
+
+            // Cloudinary setup for profile picture
+            const file = req.file;
+            let cloudResponse;
+
+            // If a file is provided, upload it; otherwise, use the default image
+            if (file) {
+                  const fileUri = getDataUri(file);
+                  cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+            } else {
+                  cloudResponse = {
+                        secure_url: "https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png"
+                  };
+            }
+
 
             //checking email is already in the db
             const user = await User.findOne({ email });
@@ -58,7 +73,11 @@ export const register = async (req, res) => {
             })
 
       } catch (error) {
-            console.log(error)
+            console.log(error);
+            return res.status(500).json({
+                  message: 'An error occurred during registration.',
+                  success: false
+            });
       }
 }
 
