@@ -3,9 +3,12 @@ import { Button } from "./ui/button"
 import { Avatar, AvatarImage } from "./ui/avatar"
 import { Badge } from "./ui/badge"
 import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { toast } from "sonner"
 
 const Job = ({ job }) => {
       const navigate = useNavigate()
+      const { user } = useSelector((state) => state.auth);
 
       const daysAgoFunction = (mongoDbTime) => {
             const createdAt = new Date(mongoDbTime)
@@ -13,6 +16,17 @@ const Job = ({ job }) => {
             const timeDifference = currentTime - createdAt
             return Math.floor(timeDifference / (1000 * 24 * 60 * 60))
       }
+
+      const handleDetailsClick = () => {
+            if (user) {
+                  // If the user is logged in, navigate to the job description page
+                  navigate(`/jobs/description/${job?._id}`);
+            } else {
+                  // If the user is not logged in, show a message and navigate to the login page
+                  toast.error("Please login first to view the job details");
+                  navigate("/login");
+            }
+      };
 
       return (
             <div className="border border-slate-500 rounded-xl p-5 shadow-xl shadow-gray-300 bg-white hover:scale-105 cursor-auto">
@@ -38,7 +52,7 @@ const Job = ({ job }) => {
                         <Badge variant='ghost' className='text-red-600 font-bold text-sm'>{job?.salary}LPA</Badge>
                   </div>
                   <div className="flex justify-between mt-5 font-serif">
-                        <Button onClick={() => navigate(`/jobs/description/${job?._id}`)} variant='ghost' className=' text-xs bg-green-400 hover:bg-green-600  font-bold rounded-full'>Details &nbsp;<Info size='icon' /></Button>
+                        <Button onClick={handleDetailsClick} variant='ghost' className=' text-xs bg-green-400 hover:bg-green-600  font-bold rounded-full'>Details &nbsp;<Info size='icon' /></Button>
                         <Button variant='ghost' className='bg-gray-300 hover:bg-gray-400 rounded-full text-xs font-bold'>Save for later &nbsp; <Bookmark size='icon' /></Button>
                   </div>
             </div>
