@@ -6,6 +6,7 @@ import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setSearchCompanyByName } from '@/redux/companySlice'
+import Footer from '../shared/Footer'
 
 const Companies = () => {
       useGetAllCompanies();
@@ -27,6 +28,7 @@ const Companies = () => {
                         </div>
                         <CompaniesTable />
                   </div>
+                  <Footer />
             </div>
       )
 }
