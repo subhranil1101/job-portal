@@ -70,7 +70,7 @@ const Navbar = () => {
                                                 }
                                           </Avatar>
                                     </PopoverTrigger>
-                                    <PopoverContent className='w-80 mr-16 rounded-3xl bg-slate-100'>
+                                    <PopoverContent className='w-80 mr-16 rounded-3xl bg-slate-100 shadow-xl'>
                                           <div className="flex items-center gap-2">
                                                 <Avatar className='cursor-pointer hover:scale-105'>
                                                       {
@@ -86,11 +86,12 @@ const Navbar = () => {
                                                 </div>
                                           </div>
                                           <div className="w-[90%] flex mt-5 justify-between text-sm">
-                                                {user && user.role === 'student' && (
+                                                {user && user.role === 'student' ? (
                                                       <Link to='/profile'><Button variant='link'> <User2 />&nbsp;View Profile</Button></Link>
+                                                ) : (
+                                                      <Link to='/admin/profile'><Button variant='link'> <User2 />&nbsp;View Profile</Button></Link>
                                                 )}
                                                 <Button onClick={logoutHandler} variant='destructive' className='bg-red-600 rounded-2xl hover:bg-red-500 text-white'><LogOut />&nbsp;Logout</Button>
-
                                           </div>
                                     </PopoverContent>
                               </Popover>

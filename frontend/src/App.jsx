@@ -14,6 +14,7 @@ import AdminJobs from "./components/admin/AdminJobs";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import AdminProfile from "./components/admin/AdminProfile";
 
 function App() {
   // Get user info from Redux store
@@ -39,6 +40,15 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         {/* Protected routes for admin (recruiter) */}
+
+        <Route
+          path="/admin/profile"
+          element={
+            <ProtectedRoute user={user} role="recruiter">
+              <AdminProfile />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/companies"
           element={
