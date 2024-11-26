@@ -22,7 +22,7 @@ const Profile = () => {
                                     <Avatar className='h-24 w-24'>
                                           {
                                                 user?.profile?.profilePhoto ? <AvatarImage src={user?.profile?.profilePhoto} alt="profile" /> :
-                                                      <AvatarImage src="https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png" alt="profile" />
+                                                      <AvatarImage src="https://w7.pngwing.com/pngs/205/731/png-transparent-default-avatar-thumbnail.png" alt="profile" />
                                           }
                                     </Avatar>
                                     <div>
